@@ -90,6 +90,7 @@ then
     fi
 
     # Get current latest commit running on prod
+    ssh -l $destination_user $destination_host "cd $destination_dir;git fetch --all"
     current_local_commit=`ssh -l $destination_user $destination_host "cd $destination_dir;git rev-parse --short HEAD"`
     current_remote_commit=`ssh -l $destination_user $destination_host "cd $destination_dir;git rev-parse --short origin/${destination_branch} "`
 
