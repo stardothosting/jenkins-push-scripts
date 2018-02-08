@@ -53,11 +53,12 @@ then
         git reset --hard;\
         git fetch --all;\
         git pull origin $destination_branch;\
-        /usr/local/bin/composer update --no-interaction --prefer-dist --optimize-autoloader;\
+        /usr/local/bin/composer install --no-interaction --prefer-dist --optimize-autoloader;\
         php artisan clear-compiled;\
         php artisan migrate --force;\
         php artisan cache:clear;\
         php artisan route:clear;\
+        php artisan route:cache;\
         php artisan view:clear;\
         php artisan config:clear;\
         php artisan config:cache;\
@@ -117,8 +118,8 @@ then
         chown -R ${user_perm}:${group_perm} ${pre_prod_dir}"
 
     # Sanity checks
-    check_composer_update=`ssh -l $destination_user $destination_host "cd $pre_prod_dir;/usr/local/bin/composer update --no-interaction --prefer-dist --optimize-autoloader"`
-    sanity_check $? "Error with composer update on production : $check_composer_update"
+    check_composer_install=`ssh -l $destination_user $destination_host "cd $pre_prod_dir;/usr/local/bin/composer install --no-interaction --prefer-dist --optimize-autoloader"`
+    sanity_check $? "Error with composer update on production : $check_composer_install"
 
     # Sanity checks before actually pushing live
     check_npm_install=`ssh -l $destination_user $destination_host "cd $pre_prod_dir;npm i"`
@@ -136,6 +137,7 @@ then
         php artisan clear-compiled;\
         php artisan cache:clear;\
         php artisan route:clear;\
+        php artisan route:cache;\
         php artisan view:clear;\
         php artisan config:clear;\
         php artisan config:cache"
