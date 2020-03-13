@@ -13,5 +13,10 @@ This script will not only propagate code from your staging (test) site, but will
 
 You can read a blog post that goes into further details for the [Jenkins Wordpress push script](https://www.shift8web.ca/2017/12/wordpress-plugin-to-integrate-jenkins-build-api/) for more details as far as how the script works.
 
+## Drupal 8
+I have included a shell script for pushing a Drupal 8 site via Jenkins. This script likely will need to be modified to suit your environment. The script is designed to accommodate synchronizing to multiple webservers for a production push. 
+
+This script relies on git to pull code based on the branch pushed and is similar to how the Laravel push script is structured.
+
 ## About
 We are a [Web Design Company in Toronto](https://www.shift8web.ca) that specializes in infrastructure management as well as design and development of Wordpress, Drupal, Laravel and Django projects.
